@@ -169,12 +169,15 @@ const optimisePaths = (paths) => {
 
 //  Grab input and output values
 let inputFile = null
+let limit = 99999999999
 
 if (process.argv[2]) inputFile = process.argv[2]
 if (!inputFile) {
   console.log('You need to specify an input file')
   process.exit()
 }
+
+if (process.argv[3]) limit = parseInt(process.argv[3], 10)
 
 
 //  Faff around grapbbing the extension and making a valit output file name if we haven't been given one
@@ -208,6 +211,9 @@ optPaths = joinPaths(JSON.parse(JSON.stringify(paths)), 10)
 optPaths = optimisePaths(JSON.parse(JSON.stringify(optPaths)))
 
 const endingPaths = optPaths.length
+
+//  Cut it down to the limit
+optPaths = optPaths.slice(0, limit)
 
 const reversedPath = JSON.parse(JSON.stringify(optPaths)).reverse().map((p) => p.reverse())
 
