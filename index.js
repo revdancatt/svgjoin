@@ -170,6 +170,7 @@ const optimisePaths = (paths) => {
 //  Grab input and output values
 let inputFile = null
 let limit = 99999999999
+let threshold = 10
 
 if (process.argv[2]) inputFile = process.argv[2]
 if (!inputFile) {
@@ -178,6 +179,7 @@ if (!inputFile) {
 }
 
 if (process.argv[3]) limit = parseInt(process.argv[3], 10)
+if (process.argv[4]) threshold = parseFloat(process.argv[4])
 
 
 //  Faff around grapbbing the extension and making a valit output file name if we haven't been given one
@@ -207,7 +209,7 @@ const startingPaths = paths.length
 
 // const optPaths = optimisePaths(JSON.parse(JSON.stringify(paths)))
 let optPaths = JSON.parse(JSON.stringify(paths))
-optPaths = joinPaths(JSON.parse(JSON.stringify(paths)), 10)
+optPaths = joinPaths(JSON.parse(JSON.stringify(paths)), threshold)
 optPaths = optimisePaths(JSON.parse(JSON.stringify(optPaths)))
 
 const endingPaths = optPaths.length
